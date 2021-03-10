@@ -11,11 +11,11 @@ class Movie extends Model
     use HasFactory;
 
     public $fillable = [
-        'title','actors','genre'
+        'title','actors','genre',"genre_id"
     ];
 
     public function genre() {
-        return $this->hasOne(Genre::class);
+        return $this->belongsTo(Genre::class);
     }
 
     public function actors() {
