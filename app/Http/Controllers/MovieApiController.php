@@ -13,7 +13,7 @@ class MovieApiController extends Controller
         if (request()->get('orderBy')) {
             $orderBy = request()->get('orderBy');
         }
-        $movies = Movie::with('actors','genre');
+
         $actor = false;
         if (request()->get('actor')) {
             $actor = request()->get('actor');
