@@ -34,7 +34,7 @@ class MovieApiController extends Controller
                 $query->where('title',$genre);
             });
         }
-        return new MovieCollection($movies->get());
+        return response()->json(new MovieCollection($movies->get()));
 
 
     }
