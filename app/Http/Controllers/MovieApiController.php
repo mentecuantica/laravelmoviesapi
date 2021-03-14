@@ -7,12 +7,12 @@ use Illuminate\Http\Request;
 
 class MovieApiController extends Controller
 {
-    public function index($orderBy='asc',$actor=false,$genre=false) {
-
+    public function index() {
+        $orderBy = 'asc';
         if (request()->get('orderBy')) {
             $orderBy = request()->get('orderBy');
         }
-
+        $actor = false;
         if (request()->get('actor')) {
             $actor = request()->get('actor');
         }
@@ -23,6 +23,7 @@ class MovieApiController extends Controller
                 $query->where('actor_name',$actor);
             });
         }
+        $genre = false;
         if (request()->get('genre')) {
             $genre = request()->get('genre');
         }
