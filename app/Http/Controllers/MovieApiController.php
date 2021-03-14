@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\MovieCollection;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 
 class MovieApiController extends Controller
 {
-    public function index() {
-        $orderBy = 'asc';
+    public function index($orderBy='asc',$actor=false,$genre=false) {
+
         if (request()->get('orderBy')) {
             $orderBy = request()->get('orderBy');
         }
 
-        $actor = false;
         if (request()->get('actor')) {
             $actor = request()->get('actor');
         }
@@ -25,7 +23,6 @@ class MovieApiController extends Controller
                 $query->where('actor_name',$actor);
             });
         }
-        $genre = false;
         if (request()->get('genre')) {
             $genre = request()->get('genre');
         }
@@ -34,13 +31,13 @@ class MovieApiController extends Controller
                 $query->where('title',$genre);
             });
         }
-        return response()->json(new MovieCollection($movies->get()));
+        return $movies->get();
 
 
     }
 
     public function get(Movie $movie) {
-        return $movie;
+        return $movie->with('genre')->with('actors')->get();
     }
 
 
